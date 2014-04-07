@@ -4,6 +4,8 @@
 #include "../../tiny_obj_loader.h"
 #include "obj_writer.h"
 
+#include <cstdlib>
+#include <cstdio>
 #include <cassert>
 #include <iostream>
 
