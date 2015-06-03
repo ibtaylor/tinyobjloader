@@ -26,8 +26,33 @@ add_library(tinyobjloader
 			${tinyobjloader-Source}
 	)
 
-add_executable(test ${tinyobjloader-Test-Source})
-target_link_libraries(test tinyobjloader)
+option(TINYOBJLOADER_BUILD_TEST_LOADER "Build Test Loader Application" OFF)
 
-add_executable(obj_sticher ${tinyobjloader-examples-objsticher})
-target_link_libraries(obj_sticher tinyobjloader)
+if(TINYOBJLOADER_BUILD_TEST_LOADER)
+  add_executable(test_loader ${tinyobjloader-Test-Source})
+  target_link_libraries(test_loader tinyobjloader)
+endif()
+
+option(TINYOBJLOADER_BUILD_OBJ_STICHER "Build OBJ Sticher Application" OFF)
+if (TINYOBJLOADER_BUILD_OBJ_STICHER)
+  add_executable(obj_sticher ${tinyobjloader-examples-objsticher})
+  target_link_libraries(obj_sticher tinyobjloader)
+
+  install ( TARGETS
+    obj_sticher
+    DESTINATION
+    bin
+    )
+endif()
+
+#Installation
+install ( TARGETS
+  tinyobjloader
+  DESTINATION
+  lib
+  )
+install ( FILES
+  tiny_obj_loader.h
+  DESTINATION
+  include
+  )
